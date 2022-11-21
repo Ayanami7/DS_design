@@ -31,8 +31,8 @@ void Pred_travel_At(BinNode<T> *root, VST *visit)
     if(root == nullptr)
 		return;
     visit(root->data);
-    pred_travel(root->lc);
-	pred_travel(root->rc);
+    Pred_travel_At(root->lc, visit);
+    Pred_travel_At(root->rc, visit);
 }
 
 template <typename T, typename VST>     //对节点root进行中序遍历，需传入操作器
@@ -40,9 +40,9 @@ void In_travel_At(BinNode<T> *root, VST *visit)
 {
     if(root == nullptr)
 		return;
-    pred_travel(root->lc);
+    In_travel_At(root->lc, visit);
     visit(root->data);
-	pred_travel(root->rc);
+	In_travel_At(root->rc, visit);
 }
 
 template <typename T, typename VST>     //对节点root进行后序遍历，需传入操作器
@@ -51,7 +51,7 @@ void Succ_travel_At(BinNode<T> *root, VST *visit)
         if(root == nullptr)
 		return;
     visit(root->data);
-    pred_travel(root->lc);
-	pred_travel(root->rc);
+    Succ_travel_At(root->lc, visit);
+	Succ_travel_At(root->rc, visit);
     visit(root->data);
 }

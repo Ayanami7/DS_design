@@ -86,22 +86,41 @@ int BinTree<T>::Level_init(std::vector<T> &v)
     _root = new BinNode<T>(v[0]);           //先将根节点插入
     q.push(_root);
     int i = 1;
-    while (i != n)
+    bool flag = true;       //用于判断插入左侧还是右侧
+    while (i != n)          //若为false时，证明左子节点虽为空但已经被构造过
     {
-        if (q.front()->lc == nullptr)
+        if (q.front()->lc == nullptr && flag)
         {
-            BinNode<T> *temp = new BinNode<T>(v[i]);
-            q.front()->lc = temp;
-            q.push(temp);
-            i++;
+            if(v[i])
+            {
+                BinNode<T> *temp = new BinNode<T>(v[i]);
+                q.front()->lc = temp;
+                q.push(temp);
+                i++;
+            }
+            else
+            {
+                flag = false;
+                i++;
+            }
+
         }
         else if(q.front()->rc == nullptr)
         {
-            BinNode<T> *temp = new BinNode<T>(v[i]);
-            q.front()->rc = temp;
-            q.push(temp);
-            q.pop();        //弹出该节点
-            i++;
+            if(v[i])
+            {
+                BinNode<T> *temp = new BinNode<T>(v[i]);
+                q.front()->rc = temp;
+                q.push(temp);
+                q.pop();        //弹出该节点
+                i++;
+            }
+            else
+            {
+                q.pop();        //弹出该节点
+                i++;
+            }
+            flag = true;
         }
     }
 

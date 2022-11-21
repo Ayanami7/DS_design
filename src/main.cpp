@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    
+    BinTree<int> tree;
     system("pause");
     return 0;
 }

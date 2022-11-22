@@ -22,10 +22,12 @@ public:
     BinNode<T> *root() { return _root; }	                //返回根节点
 	bool Empty() const { return !_root; }                   //判空
     void Reomve(BinNode<T> *x) { Remove_At(x); }        //递归的删除以位置x处节点为根的子树
-    BinNode<T> *Insert_as_root(T const &e);                 //将数据作为根节点插入
-	BinNode<T> *Attach_as_lc(BinNode<T> *x, BinTree<T> *&S);		//将一棵二叉树S作为x的左子树插入
+    BinNode<T> *Insert_as_root(T const &e);                 //将数据作为根节点插入      返回接入位置（下同）
+    BinNode<T> *Insert_as_lc(BinNode<T> *x, T const &e);    //将数据作为某节点的左节点插入
+    BinNode<T> *Insert_as_rc(BinNode<T> *x, T const &e);    //将数据作为某节点的右节点插入
+    BinNode<T> *Attach_as_lc(BinNode<T> *x, BinTree<T> *&S);		//将一棵二叉树S作为x的左子树插入
 	BinNode<T> *Attach_as_rc(BinNode<T> *x, BinTree<T> *&S);		//将一棵二叉树S作为x的右子树插入
-    int Level_init(std::vector<T> &v);                      //使用vector层次构建一棵二叉树
+    int Level_init(std::vector<T> &v);                              //使用vector层次构建一棵二叉树  返回-1则构建失败
     template <typename VST> void Pred_travel(VST *visit)         //前中后序遍历，通过对根节点调用对应的BinNode遍历方法实现
     {
         Pred_travel_At(_root, visit);
@@ -43,9 +45,28 @@ public:
 template <typename T>
 BinNode<T> *BinTree<T>::Insert_as_root(T const &e)
 {
-    BinNode<T> *root = new BinNode<T>(e);
-    _root = root;
+    BinNode<T> *temp = new BinNode<T>(e);
+    _root = x;
     _size++;
+    return x;
+}
+
+template <typename T>
+BinNode<T> *BinTree<T>::Insert_as_lc(BinNode<T> *x, T const &e)
+{
+    BinNode<T> *temp = new BinNode<T>(e);
+    x->lc = temp;
+    _size++;
+    return x;
+}
+
+template <typename T>
+BinNode<T> *BinTree<T>::Insert_as_rc(BinNode<T> *x, T const &e)
+{
+    BinNode<T> *temp = new BinNode<T>(e);
+    x->rc = temp;
+    _size++;
+    return x;
 }
 
 template <typename T>
@@ -95,6 +116,7 @@ int BinTree<T>::Level_init(std::vector<T> &v)
             {
                 BinNode<T> *temp = new BinNode<T>(v[i]);
                 q.front()->lc = temp;
+                _size++;
                 q.push(temp);
                 i++;
             }
@@ -111,6 +133,7 @@ int BinTree<T>::Level_init(std::vector<T> &v)
             {
                 BinNode<T> *temp = new BinNode<T>(v[i]);
                 q.front()->rc = temp;
+                _size++;
                 q.push(temp);
                 q.pop();        //弹出该节点
                 i++;

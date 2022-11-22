@@ -25,7 +25,7 @@ void Remove_At(BinNode<T> *root) //删除以root为根的树
     root = nullptr;
 }
 
-template <typename T, typename VST>     //对节点root进行先序遍历，需传入操作器
+template <typename T, typename VST>     //对节点root进行先序遍历，需传入操作函数
 void Pred_travel_At(BinNode<T> *root, VST *visit)
 {
     if(root == nullptr)
@@ -35,7 +35,7 @@ void Pred_travel_At(BinNode<T> *root, VST *visit)
     Pred_travel_At(root->rc, visit);
 }
 
-template <typename T, typename VST>     //对节点root进行中序遍历，需传入操作器
+template <typename T, typename VST>     //对节点root进行中序遍历，需传入操作函数
 void In_travel_At(BinNode<T> *root, VST *visit)
 {
     if(root == nullptr)
@@ -45,7 +45,7 @@ void In_travel_At(BinNode<T> *root, VST *visit)
 	In_travel_At(root->rc, visit);
 }
 
-template <typename T, typename VST>     //对节点root进行后序遍历，需传入操作器
+template <typename T, typename VST>     //对节点root进行后序遍历，需传入操作函数
 void Succ_travel_At(BinNode<T> *root, VST *visit)
 {
         if(root == nullptr)

@@ -30,7 +30,8 @@ void Pred_travel_At(BinNode<T> *root, VST *visit)
 {
     if(root == nullptr)
 		return;
-    visit(root->data);
+    if (visit != nullptr) //若操作函数不为空，则执行
+        visit(root->data);
     Pred_travel_At(root->lc, visit);
     Pred_travel_At(root->rc, visit);
 }
@@ -41,17 +42,18 @@ void In_travel_At(BinNode<T> *root, VST *visit)
     if(root == nullptr)
 		return;
     In_travel_At(root->lc, visit);
-    visit(root->data);
+    if(visit != nullptr)                          //若操作函数不为空，则执行
+        visit(root->data);
 	In_travel_At(root->rc, visit);
 }
 
 template <typename T, typename VST>     //对节点root进行后序遍历，需传入操作函数
 void Succ_travel_At(BinNode<T> *root, VST *visit)
 {
-        if(root == nullptr)
+    if(root == nullptr)
 		return;
-    visit(root->data);
     Succ_travel_At(root->lc, visit);
 	Succ_travel_At(root->rc, visit);
-    visit(root->data);
+    if(visit != nullptr)                          //若操作函数不为空，则执行
+        visit(root->data);
 }

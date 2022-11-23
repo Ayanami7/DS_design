@@ -46,9 +46,9 @@ template <typename T>
 BinNode<T> *BinTree<T>::Insert_as_root(T const &e)
 {
     BinNode<T> *temp = new BinNode<T>(e);
-    _root = x;
+    _root = temp;
     _size++;
-    return x;
+    return temp;
 }
 
 template <typename T>
@@ -102,9 +102,10 @@ int BinTree<T>::Level_init(std::vector<T> &v)
 {
     if(v.empty())
         return -1;
-    int n = static_cast<int>(v.size());     //size_t转为n
+    int n = static_cast<int>(v.size());     //size_t转为int
     std::queue<BinNode<T> *> q;             //辅助队列
     _root = new BinNode<T>(v[0]);           //先将根节点插入
+    _size++;
     q.push(_root);
     int i = 1;
     bool flag = true;       //用于判断插入左侧还是右侧
@@ -149,3 +150,5 @@ int BinTree<T>::Level_init(std::vector<T> &v)
 
     return 0;
 }
+
+

@@ -1,6 +1,6 @@
 #include "DS_impl.h"
 
-void print(int x)
+void print(int x)       //操作函数，操作器详见BinNode.h
 {
     std::cout << x << " ";
 }
@@ -13,22 +13,37 @@ int main(void)
 
     std::cout << "先序序列为" << std::endl;
     tree.Pred_travel(print);
-    std::cout << std::endl;
 
     std::cout << "中序序列为" << std::endl;
     tree.In_travel(print);
-    std::cout << std::endl;
 
     Solution solution;
     solution.MaxsumBST(&tree);
 
     BinNode<int> *temp = solution.maxNode;
     int max = solution.maxRes;
-    
+
     std::cout << "最大键值为" << max << std::endl;
     std::cout << "最大子树根节点对应键值为" << temp->data << std::endl;
     std::cout << "最大子树中序序列为" << std::endl;
     In_travel_At(temp, print);
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    BST<int> tree2;
+    tree2.Insert(2);
+    tree2.Insert(2);
+    tree2.Insert(3);
+    tree2.Insert(4);
+    tree2.Insert(6);
+    tree2.Insert(5);
+
+    tree2.Del(6);
+    std::cout << tree2.size() << std::endl;
+
+    tree2.Pred_travel(print);
+    tree2.In_travel(print);
+    tree2.Succ_travel(print);
 
     system("pause");
     return 0;

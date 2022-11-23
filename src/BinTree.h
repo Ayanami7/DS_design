@@ -17,7 +17,7 @@ public:
             Remove_At(_root);
     }
 
-    //基本操作接口
+    //基本操作接口.
     int size() const { return _size; }                      //返回规模大小
     BinNode<T> *root() { return _root; }	                //返回根节点
 	bool Empty() const { return !_root; }                   //判空
@@ -31,14 +31,17 @@ public:
     template <typename VST> void Pred_travel(VST *visit)         //前中后序遍历，通过对根节点调用对应的BinNode遍历方法实现
     {
         Pred_travel_At(_root, visit);
+        std::cout << std::endl;
     }
     template <typename VST> void In_travel(VST *visit)
     {
         In_travel_At(_root, visit);
+        std::cout << std::endl;
     }
     template <typename VST> void Succ_travel(VST *visit)
     {
         Succ_travel_At(_root, visit);
+        std::cout << std::endl;
     }
 };
 

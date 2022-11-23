@@ -1,9 +1,7 @@
 #pragma once
 #include "BST.h"
 
-//该算法需要同时迭代多个值，故将解决方法写成一个类
-
-
+//解决方法类
 class Solution
 {
 public:
@@ -17,25 +15,23 @@ public:
         DFS(tree->root());
     }
 
+    //由于该函数递归中需要传递的变量较多，故采用一个vector储存
+    //变量分别为
     //是否为BST，最小值，最大值，节点和
     std::vector<int> DFS(BinNode<int> *x)
     {
-        if(x==nullptr)      //递归基
+        if (x == nullptr) //递归基，即空节点返回值
             return {true, INT_MAX, INT_MIN, 0};
         auto lcvec = DFS(x->lc);
         auto rcvec = DFS(x->rc);
-        int sum = lcvec[3] + rcvec[3];  //将两个子树的键值和相加
+        int sum = lcvec[3] + rcvec[3] + x->data; //将两个子树的键值和与自身相加
 
-        bool isBST;                                     //判断标志，即返回值第一项
+        bool isBST;     //判断标志，即返回值第一项
         // BST判断条件，大于左子树最大值且小于右子树最小值且子树均为BST
         if (x->data > lcvec[2] && x->data < rcvec[1] && lcvec[0] && rcvec[0]) 
-        {
             isBST = true;
-        }
         else
-        {
             isBST = false;
-        }
 
         if(isBST)
         {

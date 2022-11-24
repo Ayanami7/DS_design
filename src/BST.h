@@ -47,64 +47,68 @@ BinNode<T>* Insert_In(BinNode<T>* root, const T &e)
 template <typename T>
 bool BST<T>::Del(const T &e)
 {
-    BinNode<T> *temp = Search(e);
-    if(temp == nullptr)
+    BinNode<T> *temp1 = Search(e);
+    BinNode<T> *parent = this->Find_Parent(temp1);
+    if(temp1 ==nullptr)
         return false;
-    Del_In(this->_root, temp);
+    Del_In(temp1, parent, this->_root);
+    this->_size--;
     return true;
 }
 
 template <typename T>
-void Del_In(BinNode<T>* &root,BinNode<T>* &cur)
+void Del_In(BinNode<T> *&x, BinNode<T> *&hot, BinNode<T> *&_root)
 {
-    if(cur->lc ==nullptr)
+    BinNode<T> *delNode = x;
+    if (x->lc == nullptr && x->rc == nullptr)
     {
-        if(cur == root)
+        ;
+    }
+
+    else if (x->lc == nullptr)
+    {
+        if (hot == nullptr)
         {
-            root = cur->rc;
+            _root = x->rc;
         }
-        if(cur == root->lc)
+        else if (hot->lc == x)
         {
-            root->lc = cur->rc;
+            hot->lc = x->rc;
         }
-        if(cur == root->rc)
+        else if(hot->rc == x)
         {
-            root->rc = cur->rc;
+            hot->rc = x->rc;
         }
     }
-    else if (cur->rc == nullptr)
+
+    else if(x->rc == nullptr)
     {
-        if(cur == root)
+        if (hot == nullptr)
         {
-            root = cur->lc;
+            _root = x->lc;
         }
-        if(cur == root->lc)
+        else if (hot->lc == x)
         {
-            root->lc=cur->lc;
+            hot->lc = x->lc;
         }
-        if(cur == root->rc){
-            root->rc=cur->lc;
+        else if(hot->rc == x)
+        {
+            hot->rc = x->lc;
         }
     }
+
     else
     {
-        BinNode<T> *target = cur->rc;
-        BinNode<T> * targetParent = cur;
-        while (target->lc!=nullptr)
+        BinNode<T> *temp = x;
+        while (temp->lc != nullptr)
         {
-            targetParent = target;
-            target = target->lc;
+            temp = temp->lc;
         }
-        cur->data = target->data;
-        if(target == targetParent->lc)
-        {
-            targetParent->lc = target->rc;
-        }
-        else
-        {
-            targetParent->rc = target->rc;
-        }
+        x->data = temp->data;
+        delNode = temp;
     }
+    delete delNode;
+    delNode == nullptr;
 }
 
 template <typename T>
@@ -118,7 +122,7 @@ BinNode<T> *&Search_In(BinNode<T> *&x, const T &e)
 {
     if (x == nullptr || x->data == e)
         return x;
-    else if (e < x->data)
+    if (e < x->data)
         return Search_In(x->lc, e);
     else
         return Search_In(x->rc, e);

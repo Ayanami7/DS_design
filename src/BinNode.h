@@ -25,6 +25,20 @@ void Remove_At(BinNode<T> *root) //删除以root为根的树
     root = nullptr;
 }
 
+template <typename T>           //用于编写其他函数的操作接口，寻找一个节点的父节点
+BinNode<T> *Find_Parent_At(BinNode<T> *root, BinNode<T> *x)
+{
+    if (root->lc == x || root->rc == x)
+        return root;
+    
+    if(root->lc)
+        return Find_Parent_At(root->lc, x);
+    if(root->rc)
+        return Find_Parent_At(root->rc, x);
+
+    return nullptr;
+}
+
 template <typename T, typename VST>     //对节点root进行先序遍历，需传入操作函数
 void Pred_travel_At(BinNode<T> *root, VST *visit)
 {

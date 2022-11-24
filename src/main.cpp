@@ -38,7 +38,14 @@ int main(void)
     tree2.Insert(6);
     tree2.Insert(5);
 
-    tree2.Del(6);
+    tree2.Del(2);
+    auto t = tree2.Search(4);
+    auto par = tree2.Find_Parent(t);
+    if(par->lc == t)
+        std::cout << par->lc->data << std::endl;
+    else
+        std::cout << par->rc->data << std::endl;
+    std::cout << t->data << std::endl;
     std::cout << tree2.size() << std::endl;
 
     tree2.Pred_travel(print);

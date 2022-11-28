@@ -142,6 +142,8 @@ int BinTree<T>::Level_init(std::vector<T> &v)
 {
     if(v.empty())
         return -1;
+    if (!v[0])
+        return -1;
     int n = static_cast<int>(v.size());     //size_t转为int
     std::queue<BinNode<T> *> q;             //辅助队列
     _root = new BinNode<T>(v[0]);           //先将根节点插入

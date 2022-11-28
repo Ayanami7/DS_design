@@ -7,7 +7,6 @@ DS_DESIGN--
         |--BinTree.h
         |--BST.h
         |--MaxSumBST.h
-        |--DS_impl.h
         |--main.cpp
     .gitignore                      //git配置文件
     CMakeLists.txt                  //CMake配置文件

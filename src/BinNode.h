@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <queue>
+#include <vector>
 
 template <typename T>   //二叉树节点模板类
 class BinNode
@@ -14,6 +16,7 @@ public:
 	~BinNode(){};                               //析构函数
 };
 
+//操作函数
 template <typename T>
 void Remove_At(BinNode<T> *root) //删除以root为根的树
 {
@@ -70,4 +73,26 @@ void Succ_travel_At(BinNode<T> *root, VST *visit)
 	Succ_travel_At(root->rc, visit);
     if(visit != nullptr)                          //若操作函数不为空，则执行
         visit(root->data);
+}
+
+template <typename T, typename VST>     //对节点root进行层次遍历，需传入操作函数
+void Level_travel_At(BinNode<T> *root, VST *visit)
+{
+    BinNode<T> *temp = root;
+    if (root == nullptr)
+        return;
+    std::queue<BinNode<T> *> q;
+	q.push(temp);
+	while(!q.empty())
+	{
+		temp = q.front();
+		q.pop();
+
+		if (temp != nullptr)
+		{
+            visit(temp->data);
+            q.push(temp->lc);
+			q.push(temp->rc);
+		}
+	}
 }

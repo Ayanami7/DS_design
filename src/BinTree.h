@@ -1,17 +1,15 @@
 #pragma once
 #include "BinNode.h"
-#include <queue>
-#include <vector>
 
-template <typename T> 
-class BinTree           //基于BinNode抽象出BinTree类
+template <typename T>
+class BinTree //基于BinNode抽象出BinTree类
 {
 protected:
 	int _size;                                   //规模
     BinNode<T> *_root;                           //根节点
 public:
 	BinTree() : _size(0), _root(nullptr) {};        //构造函数
-    ~BinTree()                                      //析构函数
+    virtual ~BinTree()                                      //析构函数
     {
         if (0 < _size)
             Remove_At(_root);
@@ -44,6 +42,15 @@ public:
         Succ_travel_At(_root, visit);
         std::cout << std::endl;
     }
+    template <typename VST> void Level_travel(VST *visit)
+    {
+        Level_travel_At(_root, visit);
+        std::cout << std::endl;
+    }
+
+private:
+	BinTree(const BinTree<T>&);		        //阻止copying
+    BinTree operator=(const BinTree<T> &);
 };
 
 template <typename T>

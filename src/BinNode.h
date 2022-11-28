@@ -18,14 +18,14 @@ public:
 
 //操作函数
 template <typename T>
-void Remove_At(BinNode<T> *root) //删除以root为根的树
+int Remove_At(BinNode<T> *root) //删除以root为根的树
 {
     if(root == nullptr)
-        return;
-    Remove_At(root->lc);
-    Remove_At(root->rc);         //递归释放左右子树
+        return 0;
+    int n = 1 + Remove_At(root->lc) + Remove_At(root->rc); //递归释放左右子树
     delete root;                //删除对应空间并将指针置空
     root = nullptr;
+    return n;
 }
 
 template <typename T>           //用于编写其他函数的操作接口，寻找一个节点的父节点

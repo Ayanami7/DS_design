@@ -19,7 +19,7 @@ public:
     int size() const { return _size; }                      //返回规模大小
     BinNode<T> *root() { return _root; }	                //返回根节点
 	bool Empty() const { return !_root; }                   //判空
-    void Reomve(BinNode<T> *x) { Remove_At(x); }        //递归的删除以位置x处节点为根的子树
+    int Reomve(BinNode<T> *x); //递归的删除以位置x处节点为根的子树
     BinNode<T> *Find_Parent(BinNode<T> *x);
     BinNode<T> *Insert_as_root(T const &e);                 //将数据作为根节点插入      返回接入位置（下同）
     BinNode<T> *Insert_as_lc(BinNode<T> *x, T const &e);    //将数据作为某节点的左节点插入
@@ -52,6 +52,29 @@ private:
 	BinTree(const BinTree<T>&);		        //阻止copying
     BinTree operator=(const BinTree<T> &);
 };
+
+template <typename T>
+int BinTree<T>::Reomve(BinNode<T> *x)
+{ 
+    if (x != _root)
+    {
+        BinNode<T> *par = Find_Parent(x);
+        if(par->lc ==x)
+        {
+            par->lc = nullptr;
+        }
+        else if(par->rc ==x)
+        {
+            par->rc = nullptr;
+        }
+    }
+
+    int n = Remove_At(x);
+    x = nullptr;
+    _size -= n;
+    return n;
+}
+
 
 template <typename T>
 BinNode<T> *BinTree<T>::Find_Parent(BinNode<T> *x)

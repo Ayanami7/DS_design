@@ -1,5 +1,5 @@
 #include <vector>
-#include "BST.h"
+#include "BinNode.h"
 #include "MaxsumBST.h"
 
 std::vector<std::vector<int> > List;
@@ -34,7 +34,6 @@ void Init_sample()      //初始化测试用例
     sample = {NULL};
     List.push_back(sample);
     sample.clear();
-
 }
 
 void print(int x)       //操作函数，操作器详见BinNode.h
@@ -64,6 +63,8 @@ int main(void)
 
         std::cout << "后序序列为:" << std::endl;
         tree->Succ_travel(print);
+
+        std::cout << std::endl;
 
         solution.MaxsumBST(tree);
         int maxRes = solution.maxRes;

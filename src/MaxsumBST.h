@@ -1,5 +1,5 @@
 #pragma once
-#include "BST.h"
+#include "BinTree.h"
 
 //解决方法类
 class Solution

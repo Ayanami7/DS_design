@@ -3,95 +3,95 @@
 #include <queue>
 #include <vector>
 
-template <typename T>   //¶ş²æÊ÷½ÚµãÄ£°åÀà
+template <typename T> // äºŒå‰æ ‘èŠ‚ç‚¹æ¨¡æ¿ç±»
 class BinNode
 {
 public:
-    T data;             //Êı¾İ
-    BinNode<T> *lc;     //×óº¢×Ó
-    BinNode<T> *rc;     //ÓÒº¢×Ó
-    BinNode() : lc(nullptr), rc(nullptr){}      //Èı¸ö¹¹Ôìº¯Êı
-    BinNode(T x) : data(x), lc(nullptr), rc(nullptr){}      
-	BinNode(T x, BinNode<T> *a, BinNode<T> *b) : data(x), lc(a), rc(b){}
-	~BinNode(){};                               //Îö¹¹º¯Êı
+	T data;									// æ•°æ®
+	BinNode<T> *lc;							// å·¦å­©å­
+	BinNode<T> *rc;							// å³å­©å­
+	BinNode() : lc(nullptr), rc(nullptr) {} // ä¸‰ä¸ªæ„é€ å‡½æ•°
+	BinNode(T x) : data(x), lc(nullptr), rc(nullptr) {}
+	BinNode(T x, BinNode<T> *a, BinNode<T> *b) : data(x), lc(a), rc(b) {}
+	~BinNode(){}; // ææ„å‡½æ•°
 };
 
-//²Ù×÷º¯Êı
+// æ“ä½œå‡½æ•°
 template <typename T>
-int Remove_At(BinNode<T> *root) //É¾³ıÒÔrootÎª¸ùµÄÊ÷
+int Remove_At(BinNode<T> *root) // åˆ é™¤ä»¥rootä¸ºæ ¹çš„æ ‘
 {
-    if(root == nullptr)
-        return 0;
-    int n = 1 + Remove_At(root->lc) + Remove_At(root->rc); //µİ¹éÊÍ·Å×óÓÒ×ÓÊ÷
-    delete root;                //É¾³ı¶ÔÓ¦¿Õ¼ä²¢½«Ö¸ÕëÖÃ¿Õ
-    root = nullptr;
-    return n;
+	if (root == nullptr)
+		return 0;
+	int n = 1 + Remove_At(root->lc) + Remove_At(root->rc); // é€’å½’é‡Šæ”¾å·¦å³å­æ ‘
+	delete root;										   // åˆ é™¤å¯¹åº”ç©ºé—´å¹¶å°†æŒ‡é’ˆç½®ç©º
+	root = nullptr;
+	return n;
 }
 
-template <typename T>           //ÓÃÓÚ±àĞ´ÆäËûº¯ÊıµÄ²Ù×÷½Ó¿Ú£¬Ñ°ÕÒÒ»¸ö½ÚµãµÄ¸¸½Úµã
+template <typename T> // ç”¨äºç¼–å†™å…¶ä»–å‡½æ•°çš„æ“ä½œæ¥å£ï¼Œå¯»æ‰¾ä¸€ä¸ªèŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
 BinNode<T> *Find_Parent_At(BinNode<T> *root, BinNode<T> *x)
 {
-    if (root->lc == x || root->rc == x)
-        return root;
-    
-    if(root->lc)
-        return Find_Parent_At(root->lc, x);
-    if(root->rc)
-        return Find_Parent_At(root->rc, x);
+	if (root->lc == x || root->rc == x)
+		return root;
 
-    return nullptr;
+	if (root->lc)
+		return Find_Parent_At(root->lc, x);
+	if (root->rc)
+		return Find_Parent_At(root->rc, x);
+
+	return nullptr;
 }
 
-template <typename T, typename VST>     //¶Ô½Úµãroot½øĞĞÏÈĞò±éÀú£¬Ğè´«Èë²Ù×÷º¯Êı
+template <typename T, typename VST> // å¯¹èŠ‚ç‚¹rootè¿›è¡Œå…ˆåºéå†ï¼Œéœ€ä¼ å…¥æ“ä½œå‡½æ•°
 void Pred_travel_At(BinNode<T> *root, VST *visit)
 {
-    if(root == nullptr)
+	if (root == nullptr)
 		return;
-    if (visit != nullptr) //Èô²Ù×÷º¯Êı²»Îª¿Õ£¬ÔòÖ´ĞĞ
-        visit(root->data);
-    Pred_travel_At(root->lc, visit);
-    Pred_travel_At(root->rc, visit);
+	if (visit != nullptr) // è‹¥æ“ä½œå‡½æ•°ä¸ä¸ºç©ºï¼Œåˆ™æ‰§è¡Œ
+		visit(root->data);
+	Pred_travel_At(root->lc, visit);
+	Pred_travel_At(root->rc, visit);
 }
 
-template <typename T, typename VST>     //¶Ô½Úµãroot½øĞĞÖĞĞò±éÀú£¬Ğè´«Èë²Ù×÷º¯Êı
+template <typename T, typename VST> // å¯¹èŠ‚ç‚¹rootè¿›è¡Œä¸­åºéå†ï¼Œéœ€ä¼ å…¥æ“ä½œå‡½æ•°
 void In_travel_At(BinNode<T> *root, VST *visit)
 {
-    if(root == nullptr)
+	if (root == nullptr)
 		return;
-    In_travel_At(root->lc, visit);
-    if(visit != nullptr)                          //Èô²Ù×÷º¯Êı²»Îª¿Õ£¬ÔòÖ´ĞĞ
-        visit(root->data);
+	In_travel_At(root->lc, visit);
+	if (visit != nullptr) // è‹¥æ“ä½œå‡½æ•°ä¸ä¸ºç©ºï¼Œåˆ™æ‰§è¡Œ
+		visit(root->data);
 	In_travel_At(root->rc, visit);
 }
 
-template <typename T, typename VST>     //¶Ô½Úµãroot½øĞĞºóĞò±éÀú£¬Ğè´«Èë²Ù×÷º¯Êı
+template <typename T, typename VST> // å¯¹èŠ‚ç‚¹rootè¿›è¡Œååºéå†ï¼Œéœ€ä¼ å…¥æ“ä½œå‡½æ•°
 void Succ_travel_At(BinNode<T> *root, VST *visit)
 {
-    if(root == nullptr)
+	if (root == nullptr)
 		return;
-    Succ_travel_At(root->lc, visit);
+	Succ_travel_At(root->lc, visit);
 	Succ_travel_At(root->rc, visit);
-    if(visit != nullptr)                          //Èô²Ù×÷º¯Êı²»Îª¿Õ£¬ÔòÖ´ĞĞ
-        visit(root->data);
+	if (visit != nullptr) // è‹¥æ“ä½œå‡½æ•°ä¸ä¸ºç©ºï¼Œåˆ™æ‰§è¡Œ
+		visit(root->data);
 }
 
-template <typename T, typename VST>     //¶Ô½Úµãroot½øĞĞ²ã´Î±éÀú£¬Ğè´«Èë²Ù×÷º¯Êı
+template <typename T, typename VST> // å¯¹èŠ‚ç‚¹rootè¿›è¡Œå±‚æ¬¡éå†ï¼Œéœ€ä¼ å…¥æ“ä½œå‡½æ•°
 void Level_travel_At(BinNode<T> *root, VST *visit)
 {
-    BinNode<T> *temp = root;
-    if (root == nullptr)
-        return;
-    std::queue<BinNode<T> *> q;
+	BinNode<T> *temp = root;
+	if (root == nullptr)
+		return;
+	std::queue<BinNode<T> *> q;
 	q.push(temp);
-	while(!q.empty())
+	while (!q.empty())
 	{
 		temp = q.front();
 		q.pop();
 
 		if (temp != nullptr)
 		{
-            visit(temp->data);
-            q.push(temp->lc);
+			visit(temp->data);
+			q.push(temp->lc);
 			q.push(temp->rc);
 		}
 	}

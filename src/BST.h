@@ -1,129 +1,129 @@
 #pragma once
-#include"BinTree.h"
+#include "BinTree.h"
 
 template <typename T>
-class BST : public BinTree<T>   //»ùÓÚBinTreeÅÉÉú³öBST
+class BST : public BinTree<T> // åŸºäºBinTreeæ´¾ç”Ÿå‡ºBST
 {
-public:         //Ê¹ÓÃĞé·½·¨Ê¹ÅÉÉúÀàĞèÖØĞ´¸Ã·½·¨
-    virtual BinNode<T> *&Search(const T &e);    //ËÑË÷e
-    virtual BinNode<T> *Insert(const T &e);     //²åÈëe
-    virtual bool Del(const T &e);               //É¾³ıe
+public:										 // ä½¿ç”¨è™šæ–¹æ³•ä½¿æ´¾ç”Ÿç±»éœ€é‡å†™è¯¥æ–¹æ³•
+	virtual BinNode<T> *&Search(const T &e); // æœç´¢e
+	virtual BinNode<T> *Insert(const T &e);	 // æ’å…¥e
+	virtual bool Del(const T &e);			 // åˆ é™¤e
 };
 
 template <typename T>
-BinNode<T> *BST<T>::Insert(const T &e)      //·µ»Ø¸ù½Úµã
+BinNode<T> *BST<T>::Insert(const T &e) // è¿”å›æ ¹èŠ‚ç‚¹
 {
-    if (this->_root == nullptr)             //Èô¸ùÎª¿Õ£¬ÔòÏÈ²åÈë¸ù½Úµã
-    {                                       
-        this->_root = new BinNode<T>(e);
-        this->_size++;                      //Ä£°åÀàÖĞÅÉÉúÀàÏëÒª·ÃÎÊ»ùÀà³ÉÔ±ĞèÒª¼ÓÉÏthis->
-        return this->_root;
-    }
-    if(!Search(e))      //Èô´æÔÚÏàÍ¬ÖµÊ±£¬²åÈë²»»áÖ´ĞĞ£¬Òò´ËĞèÒªÊÖ¶¯ÅĞ¶Ï¹æÄ£ÊÇ·ñÔö¼Ó
-        this->_size++;          
-    BinNode<T> *node = Insert_In(this->_root, e);
-    return node;
-} 
+	if (this->_root == nullptr) // è‹¥æ ¹ä¸ºç©ºï¼Œåˆ™å…ˆæ’å…¥æ ¹èŠ‚ç‚¹
+	{
+		this->_root = new BinNode<T>(e);
+		this->_size++; // æ¨¡æ¿ç±»ä¸­æ´¾ç”Ÿç±»æƒ³è¦è®¿é—®åŸºç±»æˆå‘˜éœ€è¦åŠ ä¸Šthis->
+		return this->_root;
+	}
+	if (!Search(e)) // è‹¥å­˜åœ¨ç›¸åŒå€¼æ—¶ï¼Œæ’å…¥ä¸ä¼šæ‰§è¡Œï¼Œå› æ­¤éœ€è¦æ‰‹åŠ¨åˆ¤æ–­è§„æ¨¡æ˜¯å¦å¢åŠ 
+		this->_size++;
+	BinNode<T> *node = Insert_In(this->_root, e);
+	return node;
+}
 
 template <typename T>
-BinNode<T>* Insert_In(BinNode<T>* root, const T &e) 
+BinNode<T> *Insert_In(BinNode<T> *root, const T &e)
 {
-    //µü´úÖÕÖ¹Ìõ¼ş£ºµ±Ç°½ÚµãÎª¿Õ£¬ËµÃ÷´ı²åÈëµÄÖµ¾ÍÓ¦¸Ã²åÈëµ½ÕâÀï£¬¹¹Ôì½Úµã£¬·µ»Ø¸Ã½Úµã
-    if (root == nullptr) 
-    {
-        BinNode<T>* node = new BinNode<T>(e);
-        return node;
-    }
+	// è¿­ä»£ç»ˆæ­¢æ¡ä»¶ï¼šå½“å‰èŠ‚ç‚¹ä¸ºç©ºï¼Œè¯´æ˜å¾…æ’å…¥çš„å€¼å°±åº”è¯¥æ’å…¥åˆ°è¿™é‡Œï¼Œæ„é€ èŠ‚ç‚¹ï¼Œè¿”å›è¯¥èŠ‚ç‚¹
+	if (root == nullptr)
+	{
+		BinNode<T> *node = new BinNode<T>(e);
+		return node;
+	}
 
-    //µü´úµ¥²ãÑ­»·£¬Èç¹ûµ±Æä½ÚµãÖµ´óÓÚ¸ø¶¨Öµ£¬Ïò×óËÑË÷£¬Í¬Ê±½ÓÊÜµİ¹éº¯Êı·µ»ØµÄ½Úµã×÷Îª×Ô¼ºµÄ×óº¢×Ó£¬Íê³É¸¸×Ó½Úµã¸³Öµ
-    if (root->data > e)
-        root->lc = Insert_In(root->lc, e);
-    //µü´úµ¥²ãÑ­»·£¬Èç¹ûµ±Æä½ÚµãÖµĞ¡ÓÚ¸ø¶¨Öµ£¬ÏòÓÒËÑË÷£¬Í¬Ê±½ÓÊÜµİ¹éº¯Êı·µ»ØµÄ½Úµã×÷Îª×Ô¼ºµÄÓÉº¢×Ó£¬Íê³É¸¸×Ó½Úµã¸³Öµ
-    if (root->data < e)
-        root->rc = Insert_In(root->rc, e);
-    return root;
+	// è¿­ä»£å•å±‚å¾ªç¯ï¼Œå¦‚æœå½“å…¶èŠ‚ç‚¹å€¼å¤§äºç»™å®šå€¼ï¼Œå‘å·¦æœç´¢ï¼ŒåŒæ—¶æ¥å—é€’å½’å‡½æ•°è¿”å›çš„èŠ‚ç‚¹ä½œä¸ºè‡ªå·±çš„å·¦å­©å­ï¼Œå®Œæˆçˆ¶å­èŠ‚ç‚¹èµ‹å€¼
+	if (root->data > e)
+		root->lc = Insert_In(root->lc, e);
+	// è¿­ä»£å•å±‚å¾ªç¯ï¼Œå¦‚æœå½“å…¶èŠ‚ç‚¹å€¼å°äºç»™å®šå€¼ï¼Œå‘å³æœç´¢ï¼ŒåŒæ—¶æ¥å—é€’å½’å‡½æ•°è¿”å›çš„èŠ‚ç‚¹ä½œä¸ºè‡ªå·±çš„ç”±å­©å­ï¼Œå®Œæˆçˆ¶å­èŠ‚ç‚¹èµ‹å€¼
+	if (root->data < e)
+		root->rc = Insert_In(root->rc, e);
+	return root;
 }
 
 template <typename T>
 bool BST<T>::Del(const T &e)
 {
-    BinNode<T> *temp1 = Search(e);
-    BinNode<T> *parent = this->Find_Parent(temp1);
-    if(temp1 ==nullptr)
-        return false;
-    Del_In(temp1, parent, this->_root);
-    this->_size--;
-    return true;
+	BinNode<T> *temp1 = Search(e);
+	BinNode<T> *parent = this->Find_Parent(temp1);
+	if (temp1 == nullptr)
+		return false;
+	Del_In(temp1, parent, this->_root);
+	this->_size--;
+	return true;
 }
 
 template <typename T>
 void Del_In(BinNode<T> *&x, BinNode<T> *&hot, BinNode<T> *&_root)
 {
-    BinNode<T> *delNode = x;
-    if (x->lc == nullptr && x->rc == nullptr)
-    {
-        ;
-    }
+	BinNode<T> *delNode = x;
+	if (x->lc == nullptr && x->rc == nullptr)
+	{
+		;
+	}
 
-    else if (x->lc == nullptr)
-    {
-        if (hot == nullptr)
-        {
-            _root = x->rc;
-        }
-        else if (hot->lc == x)
-        {
-            hot->lc = x->rc;
-        }
-        else if(hot->rc == x)
-        {
-            hot->rc = x->rc;
-        }
-    }
+	else if (x->lc == nullptr)
+	{
+		if (hot == nullptr)
+		{
+			_root = x->rc;
+		}
+		else if (hot->lc == x)
+		{
+			hot->lc = x->rc;
+		}
+		else if (hot->rc == x)
+		{
+			hot->rc = x->rc;
+		}
+	}
 
-    else if(x->rc == nullptr)
-    {
-        if (hot == nullptr)
-        {
-            _root = x->lc;
-        }
-        else if (hot->lc == x)
-        {
-            hot->lc = x->lc;
-        }
-        else if(hot->rc == x)
-        {
-            hot->rc = x->lc;
-        }
-    }
+	else if (x->rc == nullptr)
+	{
+		if (hot == nullptr)
+		{
+			_root = x->lc;
+		}
+		else if (hot->lc == x)
+		{
+			hot->lc = x->lc;
+		}
+		else if (hot->rc == x)
+		{
+			hot->rc = x->lc;
+		}
+	}
 
-    else
-    {
-        BinNode<T> *temp = x;
-        while (temp->lc != nullptr)
-        {
-            temp = temp->lc;
-        }
-        x->data = temp->data;
-        delNode = temp;
-    }
-    delete delNode;
-    delNode == nullptr;
+	else
+	{
+		BinNode<T> *temp = x;
+		while (temp->lc != nullptr)
+		{
+			temp = temp->lc;
+		}
+		x->data = temp->data;
+		delNode = temp;
+	}
+	delete delNode;
+	delNode == nullptr;
 }
 
 template <typename T>
-BinNode<T> *& BST<T>::Search(const T &e)
+BinNode<T> *&BST<T>::Search(const T &e)
 {
-    return Search_In(this->_root, e);
+	return Search_In(this->_root, e);
 }
 
 template <typename T>
 BinNode<T> *&Search_In(BinNode<T> *&x, const T &e)
 {
-    if (x == nullptr || x->data == e)
-        return x;
-    if (e < x->data)
-        return Search_In(x->lc, e);
-    else
-        return Search_In(x->rc, e);
+	if (x == nullptr || x->data == e)
+		return x;
+	if (e < x->data)
+		return Search_In(x->lc, e);
+	else
+		return Search_In(x->rc, e);
 }

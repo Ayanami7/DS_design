@@ -2,102 +2,102 @@
 #include "BinNode.h"
 #include "MaxsumBST.h"
 
-std::vector<std::vector<int> > List;
+std::vector<std::vector<int>> List;
 std::vector<int> sample;
 
-void Init_sample()      //≥ı ºªØ≤‚ ‘”√¿˝
+void Init_sample() // ÂàùÂßãÂåñÊµãËØïÁî®‰æã
 {
-    sample = {1, 4, 3, 2, 4, 2, 5, NULL, NULL, NULL, NULL, NULL, NULL, 4, 6};
-    List.push_back(sample);
-    sample.clear();
+	sample = {1, 4, 3, 2, 4, 2, 5, NULL, NULL, NULL, NULL, NULL, NULL, 4, 6};
+	List.push_back(sample);
+	sample.clear();
 
-    sample = {-4, -2, -5, -3 -2, -7};
-    List.push_back(sample);
-    sample.clear();
+	sample = {-4, -2, -5, -3 - 2, -7};
+	List.push_back(sample);
+	sample.clear();
 
-    sample = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    List.push_back(sample);
-    sample.clear();
+	sample = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+	List.push_back(sample);
+	sample.clear();
 
-    sample = {1, 10, 12, 8, 12, 9, 15, 6, 9};
-    List.push_back(sample);
-    sample.clear();
+	sample = {1, 10, 12, 8, 12, 9, 15, 6, 9};
+	List.push_back(sample);
+	sample.clear();
 
-    sample = {25, 14, 31, 9, 17, 27, 33, 7, 10, NULL, NULL, 26, 28};
-    List.push_back(sample);
-    sample.clear();
+	sample = {25, 14, 31, 9, 17, 27, 33, 7, 10, NULL, NULL, 26, 28};
+	List.push_back(sample);
+	sample.clear();
 
-    sample = {20, 14, 15, 7, 16, 13, 30, NULL, NULL, NULL, NULL, 10, 19};
-    List.push_back(sample);
-    sample.clear();
+	sample = {20, 14, 15, 7, 16, 13, 30, NULL, NULL, NULL, NULL, 10, 19};
+	List.push_back(sample);
+	sample.clear();
 
-    sample = {NULL};
-    List.push_back(sample);
-    sample.clear();
+	sample = {NULL};
+	List.push_back(sample);
+	sample.clear();
 }
 
-void print(int x)       //≤Ÿ◊˜∫Ø ˝£¨≤Ÿ◊˜∆˜œÍº˚BinNode.h
-{                       //¥À¥¶ «÷±Ω”¥Ú”°
-    std::cout << x << " ";
+void print(int x) // Êìç‰ΩúÂáΩÊï∞ÔºåÊìç‰ΩúÂô®ËØ¶ËßÅBinNode.h
+{				  // Ê≠§Â§ÑÊòØÁõ¥Êé•ÊâìÂç∞
+	std::cout << x << " ";
 }
 
 int main(void)
 {
-    Init_sample();
-    BinTree<int> *tree;
-    Solution solution;
-    int i = 1;
-    for (auto l : List)
-    {
-        tree = new BinTree<int>;
-        tree->Level_init(l);
+	Init_sample();
+	BinTree<int> *tree;
+	Solution solution;
+	int i = 1;
+	for (auto l : List)
+	{
+		tree = new BinTree<int>;
+		tree->Level_init(l);
 
-        std::cout << "“‘œ¬Œ™µ⁄" << i++ << "∏ˆ≤‚ ‘”√¿˝" << std::endl;
-        std::cout << "∏√∂˛≤Ê ˜”µ”–" << tree->size() << "∏ˆΩ⁄µ„" << std::endl;
+		std::cout << "‰ª•‰∏ã‰∏∫Á¨¨" << i++ << "‰∏™ÊµãËØïÁî®‰æã" << std::endl;
+		std::cout << "ËØ•‰∫åÂèâÊ†ëÊã•Êúâ" << tree->size() << "‰∏™ËäÇÁÇπ" << std::endl;
 
-        std::cout << "œ»–Ú–Ú¡–Œ™:" << std::endl;
-        tree->Pred_travel(print);
+		std::cout << "ÂÖàÂ∫èÂ∫èÂàó‰∏∫:" << std::endl;
+		tree->Pred_travel(print);
 
-        std::cout << "÷––Ú–Ú¡–Œ™:" << std::endl;
-        tree->In_travel(print);
+		std::cout << "‰∏≠Â∫èÂ∫èÂàó‰∏∫:" << std::endl;
+		tree->In_travel(print);
 
-        std::cout << "∫Û–Ú–Ú¡–Œ™:" << std::endl;
-        tree->Succ_travel(print);
+		std::cout << "ÂêéÂ∫èÂ∫èÂàó‰∏∫:" << std::endl;
+		tree->Succ_travel(print);
 
-        std::cout << std::endl;
+		std::cout << std::endl;
 
-        solution.MaxsumBST(tree);
-        int maxRes = solution.maxRes;
-        BinNode<int> *maxNode = solution.maxNode;
+		solution.MaxsumBST(tree);
+		int maxRes = solution.maxRes;
+		BinNode<int> *maxNode = solution.maxNode;
 
-        if (maxRes <= 0)
-        {
-            std::cout << "◊Ó¥Ûº¸÷µ∫ÕŒ™" << 0 << std::endl;
-            std::cout << "À˘”–Ω⁄µ„º¸÷µ∂ºŒ™∏∫ ˝£¨≤ª¥Ê‘⁄◊Ó¥Ûµƒ◊”∂˛≤ÊÀ—À˜ ˜" << std::endl;
-        }
-        else if (maxNode->lc == nullptr&&maxNode->rc == nullptr)
-        {
-            std::cout << "◊Ó¥Ûº¸÷µ∫ÕŒ™" << maxRes << std::endl;
-            std::cout << "∏√∂˛≤Ê ˜√ª”–”µ”–≥¨π˝“ª∏ˆΩ⁄µ„µƒ◊”∂˛≤ÊÀ—À˜ ˜£°" << std::endl;
-        }
-        else
-        {
-            std::cout << "◊Ó¥Ûº¸÷µ∫ÕŒ™" << maxRes << std::endl;
-            std::cout << "∂‘”¶µƒBST∏˘Ω⁄µ„º¸÷µŒ™" << maxNode->data << std::endl;
-            std::cout << "∂‘”¶µƒBST≤„¥Œ–Ú¡–Œ™" << std::endl;
-            Level_travel_At(maxNode, print);
-            std::cout << std::endl;
-            std::cout << "∂‘”¶BST÷––Ú–Ú¡–Œ™" << std::endl;
-            In_travel_At(maxNode, print);
-            std::cout << std::endl;
-        }
+		if (maxRes <= 0)
+		{
+			std::cout << "ÊúÄÂ§ßÈîÆÂÄºÂíå‰∏∫" << 0 << std::endl;
+			std::cout << "ÊâÄÊúâËäÇÁÇπÈîÆÂÄºÈÉΩ‰∏∫Ë¥üÊï∞Ôºå‰∏çÂ≠òÂú®ÊúÄÂ§ßÁöÑÂ≠ê‰∫åÂèâÊêúÁ¥¢Ê†ë" << std::endl;
+		}
+		else if (maxNode->lc == nullptr && maxNode->rc == nullptr)
+		{
+			std::cout << "ÊúÄÂ§ßÈîÆÂÄºÂíå‰∏∫" << maxRes << std::endl;
+			std::cout << "ËØ•‰∫åÂèâÊ†ëÊ≤°ÊúâÊã•ÊúâË∂ÖËøá‰∏Ä‰∏™ËäÇÁÇπÁöÑÂ≠ê‰∫åÂèâÊêúÁ¥¢Ê†ëÔºÅ" << std::endl;
+		}
+		else
+		{
+			std::cout << "ÊúÄÂ§ßÈîÆÂÄºÂíå‰∏∫" << maxRes << std::endl;
+			std::cout << "ÂØπÂ∫îÁöÑBSTÊ†πËäÇÁÇπÈîÆÂÄº‰∏∫" << maxNode->data << std::endl;
+			std::cout << "ÂØπÂ∫îÁöÑBSTÂ±ÇÊ¨°Â∫èÂàó‰∏∫" << std::endl;
+			Level_travel_At(maxNode, print);
+			std::cout << std::endl;
+			std::cout << "ÂØπÂ∫îBST‰∏≠Â∫èÂ∫èÂàó‰∏∫" << std::endl;
+			In_travel_At(maxNode, print);
+			std::cout << std::endl;
+		}
 
-        std::cout << std::endl;
-        std::cout << std::endl;
-        delete tree;
-        system("pause");
-    }
+		std::cout << std::endl;
+		std::cout << std::endl;
+		delete tree;
+		system("pause");
+	}
 
-    system("pause");
-    return 0;
+	system("pause");
+	return 0;
 }

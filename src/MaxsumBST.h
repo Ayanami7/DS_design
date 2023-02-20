@@ -1,54 +1,54 @@
 #pragma once
 #include "BinTree.h"
 
-//½â¾ö·½·¨Àà
+// è§£å†³æ–¹æ³•ç±»
 class Solution
 {
 public:
-    int maxRes;     //×î´ó¼üÖµµÄ½á¹û
-    BinNode<int> *maxNode;      //×î´ó¼üÖµ×ÓÊ÷¶ÔÓ¦µÄ½Úµã
+	int maxRes;			   // æœ€å¤§é”®å€¼çš„ç»“æœ
+	BinNode<int> *maxNode; // æœ€å¤§é”®å€¼å­æ ‘å¯¹åº”çš„èŠ‚ç‚¹
 
-    //º¯ÊıÈë¿Ú
-    void MaxsumBST(BinTree<int> *tree);
+	// å‡½æ•°å…¥å£
+	void MaxsumBST(BinTree<int> *tree);
 
-    //ÓÉÓÚ¸Ãº¯Êıµİ¹éÖĞĞèÒª´«µİµÄ±äÁ¿½Ï¶à£¬¹Ê²ÉÓÃÒ»¸övector´¢´æ
-    //±äÁ¿·Ö±ğÎª
-    //ÊÇ·ñÎªBST£¬×îĞ¡Öµ£¬×î´óÖµ£¬½ÚµãºÍ
-    std::vector<int> DFS(BinNode<int> *x);
+	// ç”±äºè¯¥å‡½æ•°é€’å½’ä¸­éœ€è¦ä¼ é€’çš„å˜é‡è¾ƒå¤šï¼Œæ•…é‡‡ç”¨ä¸€ä¸ªvectorå‚¨å­˜
+	// å˜é‡åˆ†åˆ«ä¸º
+	// æ˜¯å¦ä¸ºBSTï¼Œæœ€å°å€¼ï¼Œæœ€å¤§å€¼ï¼ŒèŠ‚ç‚¹å’Œ
+	std::vector<int> DFS(BinNode<int> *x);
 };
 
 void Solution::MaxsumBST(BinTree<int> *tree)
 {
-    maxRes = INT_MIN;
-    maxNode = nullptr;
-    DFS(tree->root());
+	maxRes = INT_MIN;
+	maxNode = nullptr;
+	DFS(tree->root());
 }
 
 std::vector<int> Solution::DFS(BinNode<int> *x)
 {
-    if (x == nullptr) //µİ¹é»ù£¬¼´¿Õ½Úµã·µ»ØÖµ
-        return {true, INT_MAX, INT_MIN, 0};
-    auto lcvec = DFS(x->lc);
-    auto rcvec = DFS(x->rc);
-    int sum = lcvec[3] + rcvec[3] + x->data; //½«Á½¸ö×ÓÊ÷µÄ¼üÖµºÍÓë×ÔÉíÏà¼Ó
+	if (x == nullptr) // é€’å½’åŸºï¼Œå³ç©ºèŠ‚ç‚¹è¿”å›å€¼
+		return {true, INT_MAX, INT_MIN, 0};
+	auto lcvec = DFS(x->lc);
+	auto rcvec = DFS(x->rc);
+	int sum = lcvec[3] + rcvec[3] + x->data; // å°†ä¸¤ä¸ªå­æ ‘çš„é”®å€¼å’Œä¸è‡ªèº«ç›¸åŠ 
 
-    bool isBST;     //ÅĞ¶Ï±êÖ¾£¬¼´·µ»ØÖµµÚÒ»Ïî
-    // BSTÅĞ¶ÏÌõ¼ş£¬´óÓÚ×ó×ÓÊ÷×î´óÖµÇÒĞ¡ÓÚÓÒ×ÓÊ÷×îĞ¡ÖµÇÒ×ÓÊ÷¾ùÎªBST
-    if (x->data > lcvec[2] && x->data < rcvec[1] && lcvec[0] && rcvec[0]) 
-        isBST = true;
-    else
-        isBST = false;
+	bool isBST; // åˆ¤æ–­æ ‡å¿—ï¼Œå³è¿”å›å€¼ç¬¬ä¸€é¡¹
+	// BSTåˆ¤æ–­æ¡ä»¶ï¼Œå¤§äºå·¦å­æ ‘æœ€å¤§å€¼ä¸”å°äºå³å­æ ‘æœ€å°å€¼ä¸”å­æ ‘å‡ä¸ºBST
+	if (x->data > lcvec[2] && x->data < rcvec[1] && lcvec[0] && rcvec[0])
+		isBST = true;
+	else
+		isBST = false;
 
-    if(isBST)
-    {
-        if(maxRes < sum)
-        {
-            maxRes = sum;       //¸üĞÂ×î´óÖµ²¢±£´æ½ÚµãÎ»ÖÃ
-            maxNode = x;
-        }
-    }
-    //¸üĞÂ×î´ó×îĞ¡Öµ
-    int maxNum = std::max(std::max(lcvec[2], rcvec[2]), x->data);
-    int minNum = std::min(std::min(lcvec[1], rcvec[1]), x->data);
-    return {isBST, minNum, maxNum, sum};
+	if (isBST)
+	{
+		if (maxRes < sum)
+		{
+			maxRes = sum; // æ›´æ–°æœ€å¤§å€¼å¹¶ä¿å­˜èŠ‚ç‚¹ä½ç½®
+			maxNode = x;
+		}
+	}
+	// æ›´æ–°æœ€å¤§æœ€å°å€¼
+	int maxNum = std::max(std::max(lcvec[2], rcvec[2]), x->data);
+	int minNum = std::min(std::min(lcvec[1], rcvec[1]), x->data);
+	return {isBST, minNum, maxNum, sum};
 }

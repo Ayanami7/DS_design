@@ -2,195 +2,195 @@
 #include "BinNode.h"
 
 template <typename T>
-class BinTree //»ùÓÚBinNode³éÏó³öBinTreeÀà
+class BinTree // åŸºäºBinNodeæŠ½è±¡å‡ºBinTreeç±»
 {
 protected:
-	int _size;                                   //¹æÄ£
-    BinNode<T> *_root;                           //¸ù½Úµã
+	int _size;		   // è§„æ¨¡
+	BinNode<T> *_root; // æ ¹èŠ‚ç‚¹
 public:
-	BinTree() : _size(0), _root(nullptr) {};        //¹¹Ôìº¯Êı
-    virtual ~BinTree()                                      //Îö¹¹º¯Êı
-    {
-        if (0 < _size)
-            Remove_At(_root);
-    }
+	BinTree() : _size(0), _root(nullptr){}; // æ„é€ å‡½æ•°
+	virtual ~BinTree()						// ææ„å‡½æ•°
+	{
+		if (0 < _size)
+			Remove_At(_root);
+	}
 
-    //»ù±¾²Ù×÷½Ó¿Ú.
-    int size() const { return _size; }                      //·µ»Ø¹æÄ£´óĞ¡
-    BinNode<T> *root() { return _root; }	                //·µ»Ø¸ù½Úµã
-	bool Empty() const { return !_root; }                   //ÅĞ¿Õ
-    int Reomve(BinNode<T> *x); //µİ¹éµÄÉ¾³ıÒÔÎ»ÖÃx´¦½ÚµãÎª¸ùµÄ×ÓÊ÷
-    BinNode<T> *Find_Parent(BinNode<T> *x);
-    BinNode<T> *Insert_as_root(T const &e);                 //½«Êı¾İ×÷Îª¸ù½Úµã²åÈë      ·µ»Ø½ÓÈëÎ»ÖÃ£¨ÏÂÍ¬£©
-    BinNode<T> *Insert_as_lc(BinNode<T> *x, T const &e);    //½«Êı¾İ×÷ÎªÄ³½ÚµãµÄ×ó½Úµã²åÈë
-    BinNode<T> *Insert_as_rc(BinNode<T> *x, T const &e);    //½«Êı¾İ×÷ÎªÄ³½ÚµãµÄÓÒ½Úµã²åÈë
-    BinNode<T> *Attach_as_lc(BinNode<T> *x, BinTree<T> *&S);		//½«Ò»¿Ã¶ş²æÊ÷S×÷ÎªxµÄ×ó×ÓÊ÷²åÈë
-	BinNode<T> *Attach_as_rc(BinNode<T> *x, BinTree<T> *&S);		//½«Ò»¿Ã¶ş²æÊ÷S×÷ÎªxµÄÓÒ×ÓÊ÷²åÈë
-    int Level_init(std::vector<T> &v);                              //Ê¹ÓÃvector²ã´Î¹¹½¨Ò»¿Ã¶ş²æÊ÷  ·µ»Ø-1Ôò¹¹½¨Ê§°Ü
-    template <typename VST> void Pred_travel(VST *visit)         //Ç°ÖĞºóĞò±éÀú£¬Í¨¹ı¶Ô¸ù½Úµãµ÷ÓÃ¶ÔÓ¦µÄBinNode±éÀú·½·¨ÊµÏÖ
-    {
-        Pred_travel_At(_root, visit);
-        std::cout << std::endl;
-    }
-    template <typename VST> void In_travel(VST *visit)
-    {
-        In_travel_At(_root, visit);
-        std::cout << std::endl;
-    }
-    template <typename VST> void Succ_travel(VST *visit)
-    {
-        Succ_travel_At(_root, visit);
-        std::cout << std::endl;
-    }
-    template <typename VST> void Level_travel(VST *visit)
-    {
-        Level_travel_At(_root, visit);
-        std::cout << std::endl;
-    }
+	// åŸºæœ¬æ“ä½œæ¥å£.
+	int size() const { return _size; }	  // è¿”å›è§„æ¨¡å¤§å°
+	BinNode<T> *root() { return _root; }  // è¿”å›æ ¹èŠ‚ç‚¹
+	bool Empty() const { return !_root; } // åˆ¤ç©º
+	int Reomve(BinNode<T> *x);			  // é€’å½’çš„åˆ é™¤ä»¥ä½ç½®xå¤„èŠ‚ç‚¹ä¸ºæ ¹çš„å­æ ‘
+	BinNode<T> *Find_Parent(BinNode<T> *x);
+	BinNode<T> *Insert_as_root(T const &e);					 // å°†æ•°æ®ä½œä¸ºæ ¹èŠ‚ç‚¹æ’å…¥      è¿”å›æ¥å…¥ä½ç½®ï¼ˆä¸‹åŒï¼‰
+	BinNode<T> *Insert_as_lc(BinNode<T> *x, T const &e);	 // å°†æ•°æ®ä½œä¸ºæŸèŠ‚ç‚¹çš„å·¦èŠ‚ç‚¹æ’å…¥
+	BinNode<T> *Insert_as_rc(BinNode<T> *x, T const &e);	 // å°†æ•°æ®ä½œä¸ºæŸèŠ‚ç‚¹çš„å³èŠ‚ç‚¹æ’å…¥
+	BinNode<T> *Attach_as_lc(BinNode<T> *x, BinTree<T> *&S); // å°†ä¸€æ£µäºŒå‰æ ‘Sä½œä¸ºxçš„å·¦å­æ ‘æ’å…¥
+	BinNode<T> *Attach_as_rc(BinNode<T> *x, BinTree<T> *&S); // å°†ä¸€æ£µäºŒå‰æ ‘Sä½œä¸ºxçš„å³å­æ ‘æ’å…¥
+	int Level_init(std::vector<T> &v);						 // ä½¿ç”¨vectorå±‚æ¬¡æ„å»ºä¸€æ£µäºŒå‰æ ‘  è¿”å›-1åˆ™æ„å»ºå¤±è´¥
+	template <typename VST>
+	void Pred_travel(VST *visit) // å‰ä¸­ååºéå†ï¼Œé€šè¿‡å¯¹æ ¹èŠ‚ç‚¹è°ƒç”¨å¯¹åº”çš„BinNodeéå†æ–¹æ³•å®ç°
+	{
+		Pred_travel_At(_root, visit);
+		std::cout << std::endl;
+	}
+	template <typename VST>
+	void In_travel(VST *visit)
+	{
+		In_travel_At(_root, visit);
+		std::cout << std::endl;
+	}
+	template <typename VST>
+	void Succ_travel(VST *visit)
+	{
+		Succ_travel_At(_root, visit);
+		std::cout << std::endl;
+	}
+	template <typename VST>
+	void Level_travel(VST *visit)
+	{
+		Level_travel_At(_root, visit);
+		std::cout << std::endl;
+	}
 
 private:
-	BinTree(const BinTree<T>&);		        //×èÖ¹copying
-    BinTree operator=(const BinTree<T> &);
+	BinTree(const BinTree<T> &); // é˜»æ­¢copying
+	BinTree operator=(const BinTree<T> &);
 };
 
 template <typename T>
 int BinTree<T>::Reomve(BinNode<T> *x)
-{ 
-    if (x != _root)
-    {
-        BinNode<T> *par = Find_Parent(x);
-        if(par->lc ==x)
-        {
-            par->lc = nullptr;
-        }
-        else if(par->rc ==x)
-        {
-            par->rc = nullptr;
-        }
-    }
+{
+	if (x != _root)
+	{
+		BinNode<T> *par = Find_Parent(x);
+		if (par->lc == x)
+		{
+			par->lc = nullptr;
+		}
+		else if (par->rc == x)
+		{
+			par->rc = nullptr;
+		}
+	}
 
-    int n = Remove_At(x);
-    x = nullptr;
-    _size -= n;
-    return n;
+	int n = Remove_At(x);
+	x = nullptr;
+	_size -= n;
+	return n;
 }
-
 
 template <typename T>
 BinNode<T> *BinTree<T>::Find_Parent(BinNode<T> *x)
 {
-    return Find_Parent_At(_root, x);
+	return Find_Parent_At(_root, x);
 }
 
 template <typename T>
 BinNode<T> *BinTree<T>::Insert_as_root(T const &e)
 {
-    BinNode<T> *temp = new BinNode<T>(e);
-    _root = temp;
-    _size++;
-    return temp;
+	BinNode<T> *temp = new BinNode<T>(e);
+	_root = temp;
+	_size++;
+	return temp;
 }
 
 template <typename T>
 BinNode<T> *BinTree<T>::Insert_as_lc(BinNode<T> *x, T const &e)
 {
-    BinNode<T> *temp = new BinNode<T>(e);
-    x->lc = temp;
-    _size++;
-    return x;
+	BinNode<T> *temp = new BinNode<T>(e);
+	x->lc = temp;
+	_size++;
+	return x;
 }
 
 template <typename T>
 BinNode<T> *BinTree<T>::Insert_as_rc(BinNode<T> *x, T const &e)
 {
-    BinNode<T> *temp = new BinNode<T>(e);
-    x->rc = temp;
-    _size++;
-    return x;
+	BinNode<T> *temp = new BinNode<T>(e);
+	x->rc = temp;
+	_size++;
+	return x;
 }
 
 template <typename T>
 BinNode<T> *BinTree<T>::Attach_as_lc(BinNode<T> *x, BinTree<T> *&S)
 {
-    if (S->root())
-        x->lc = S->root();
-    _size += S->size();     //¸üĞÂ¹æÄ£
+	if (S->root())
+		x->lc = S->root();
+	_size += S->size(); // æ›´æ–°è§„æ¨¡
 
-    S->_root = nullptr;     //É¾³ıÊ÷S
-    S->_size = 0;
+	S->_root = nullptr; // åˆ é™¤æ ‘S
+	S->_size = 0;
 	delete S;
 	S = nullptr;
-    return x;               //·µ»Ø½ÓÈëÎ»ÖÃ
+	return x; // è¿”å›æ¥å…¥ä½ç½®
 }
 
 template <typename T>
 BinNode<T> *BinTree<T>::Attach_as_rc(BinNode<T> *x, BinTree<T> *&S)
 {
-    if (S->root())
-        x->rc = S->root();
-    _size += S->size();     
+	if (S->root())
+		x->rc = S->root();
+	_size += S->size();
 
-    S->_root = nullptr;     
-    S->_size = 0;
+	S->_root = nullptr;
+	S->_size = 0;
 	delete S;
 	S = nullptr;
-    return x;               
+	return x;
 }
 
 template <typename T>
 int BinTree<T>::Level_init(std::vector<T> &v)
 {
-    if(v.empty())
-        return -1;
-    if (!v[0])
-        return -1;
-    int n = static_cast<int>(v.size());     //size_t×ªÎªint
-    std::queue<BinNode<T> *> q;             //¸¨Öú¶ÓÁĞ
-    _root = new BinNode<T>(v[0]);           //ÏÈ½«¸ù½Úµã²åÈë
-    _size++;
-    q.push(_root);
-    int i = 1;
-    bool flag = true;       //ÓÃÓÚÅĞ¶Ï²åÈë×ó²à»¹ÊÇÓÒ²à
-    while (i != n)          //ÈôÎªfalseÊ±£¬Ö¤Ã÷×ó×Ó½ÚµãËäÎª¿Õµ«ÒÑ¾­±»¹¹Ôì¹ı
-    {
-        if (q.front()->lc == nullptr && flag)
-        {
-            if(v[i])
-            {
-                BinNode<T> *temp = new BinNode<T>(v[i]);
-                q.front()->lc = temp;
-                _size++;
-                q.push(temp);
-                i++;
-            }
-            else
-            {
-                flag = false;
-                i++;
-            }
+	if (v.empty())
+		return -1;
+	if (!v[0])
+		return -1;
+	int n = static_cast<int>(v.size()); // size_tè½¬ä¸ºint
+	std::queue<BinNode<T> *> q;			// è¾…åŠ©é˜Ÿåˆ—
+	_root = new BinNode<T>(v[0]);		// å…ˆå°†æ ¹èŠ‚ç‚¹æ’å…¥
+	_size++;
+	q.push(_root);
+	int i = 1;
+	bool flag = true; // ç”¨äºåˆ¤æ–­æ’å…¥å·¦ä¾§è¿˜æ˜¯å³ä¾§
+	while (i != n)	  // è‹¥ä¸ºfalseæ—¶ï¼Œè¯æ˜å·¦å­èŠ‚ç‚¹è™½ä¸ºç©ºä½†å·²ç»è¢«æ„é€ è¿‡
+	{
+		if (q.front()->lc == nullptr && flag)
+		{
+			if (v[i])
+			{
+				BinNode<T> *temp = new BinNode<T>(v[i]);
+				q.front()->lc = temp;
+				_size++;
+				q.push(temp);
+				i++;
+			}
+			else
+			{
+				flag = false;
+				i++;
+			}
+		}
+		else if (q.front()->rc == nullptr)
+		{
+			if (v[i])
+			{
+				BinNode<T> *temp = new BinNode<T>(v[i]);
+				q.front()->rc = temp;
+				_size++;
+				q.push(temp);
+				q.pop(); // å¼¹å‡ºè¯¥èŠ‚ç‚¹
+				i++;
+			}
+			else
+			{
+				q.pop(); // å¼¹å‡ºè¯¥èŠ‚ç‚¹
+				i++;
+			}
+			flag = true;
+		}
+	}
 
-        }
-        else if(q.front()->rc == nullptr)
-        {
-            if(v[i])
-            {
-                BinNode<T> *temp = new BinNode<T>(v[i]);
-                q.front()->rc = temp;
-                _size++;
-                q.push(temp);
-                q.pop();        //µ¯³ö¸Ã½Úµã
-                i++;
-            }
-            else
-            {
-                q.pop();        //µ¯³ö¸Ã½Úµã
-                i++;
-            }
-            flag = true;
-        }
-    }
-
-    return 0;
+	return 0;
 }
-
-
